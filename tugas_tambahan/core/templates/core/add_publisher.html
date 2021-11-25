@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<style>
+
+    .container {
+        padding: 45px;
+    }
+
+    form-control {
+        padding: 20px;
+    }
+
+    form > * {
+        padding: 5px;
+        width: 400px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<div class="container">
+<h2>adding new publisher</h2>
+<span>
+    <a href="{% url 'home' %}">back to home</a>
+</span>
+<hr>
+<br>
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        {{ field.label }}
+        {{ field }}
+        <br>
+    {% endfor %}
+    <button type="submit">submit new publisher</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,175 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        font-family: monospace;
+        font-size: 15px;
+        height: fit-content;
+    }
+
+    .column-left {
+        border: black 1px solid;
+        width: 100%;
+        height: 100vh;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .column-right {
+        display: flex;
+        padding: 10px;
+        border: black 1px solid;
+        width: 100%;
+        height: 100vh;
+        overflow: scroll;
+    }
+
+    .content-card {
+        padding: 20px;
+        background-color: whitesmoke;
+        border: 1px solid black;
+    }
+    .analytics {
+        margin-left: 50px;
+    }
+
+    a {
+        list-style: none;
+        color: black;
+        text-decoration: none;
+    }
+
+    .button {
+        padding: 5px;
+        width: 300px;
+    }
+    .button-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button-wrapper > * {
+        margin-bottom: 10px;
+    }
+    .button-good {
+        background-color: tomato;
+        color: white;
+        border-radius: 10px;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+</style>
+
+
+    <div class="container">
+        <div class="column-left">
+            <img src="data:image/jpeg;base64,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" width="100px" alt="">
+            <h2>aplikasi manajemen buku</h2>
+            <div class="button-wrapper">
+                <div class="content-wrapper">
+                    <p>total buku yg sudah ada: {{ books.count }}</p>
+                    <a href="{% url 'add-book' %}" class="button button-good">manage buku</a>
+                </div>
+                <div class="content-wrapper">
+                    <p>total penulis yg sudah ada: {{ authors.count }}</p>
+                    <a href="{% url 'add-author' %}" class="button button-good">manage penulis</a>
+                </div>
+                <div class="content-wrapper">
+                    <p>total publisher yg sudah ada: {{ publishers.count }}</p>
+                    <a href="{% url 'add-publisher' %}" class="button button-good">manage publisher</a>
+                </div>
+
+                <div class="content-wrapper">
+                    <p>total toko yg sudah ada: {{ stores.count }}</p>
+                    <a href="{% url 'add-store' %}" class="button button-good">manage toko</a>
+                </div>
+            </div>
+        </div>
+        <div class="column-right">
+            <div class="datalist">
+                <div class="content-wrapper">
+                    <h3>List of Books : </h3>
+                    <hr>
+                    {% for book in books %}
+                        <p>{{ book.name }}</p>
+                    {% endfor %}
+                </div>
+    
+                <div class="content-wrapper">
+                    <h3>List of Stores : </h3>
+                    <hr>
+                    {% for store in stores %}
+                        <p>{{ store.name }}</p>
+                    {% endfor %}
+                </div>
+    
+                <div class="content-wrapper">
+                    <h3>List of Authors : </h3>
+                    <hr>
+                    {% for author in authors %}
+                        <p>{{ author.name }}</p>
+                    {% endfor %}
+                </div>
+    
+                <div class="content-wrapper">
+                    <h3>List of Publishers : </h3>
+                    <hr>
+                    {% for publisher in publishers %}
+                        <p>{{ publisher.name }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="analytics">
+                <br>
+                <h3>Data buku setiap toko</h3>
+                <hr>
+                <br>
+                <div class="content-card">
+                    <p>rata-rata harga buku:</p>
+                    <p>${{ books_avg.price__avg }}</p>
+                </div>
+                <div class="content-card">
+                    <p>max harga buku:</p>
+                    <p>${{ books_max.price__max }}</p>
+                </div>
+                {% for pub in pubs %}
+                <div class="content-card">
+                    <p> {{ pub.name }} </p>
+                    <p>total buku: {{ pub.num_books }}</p>
+                </div>
+                {% endfor %}
+                <br>
+                <h3>Rating buku di setiap publisher</h3>
+                <hr>
+                <br>
+                {% for pub_rating in pubs_rating %}
+                <div class="content-card">
+                    <h3>{{ pub_rating.name }}</h3>
+                    <p>rating di atas 5: {{ pub_rating.above_5 }} </p>
+                    <p>rating di bawah 5: {{ pub_rating.below_5 }}</p>
+                </div>
+                {% endfor %}
+                <br>
+                <h3>Top 5 publisher berdasarkan jumlah buku: </h3>
+                <hr>
+                <br>
+                {% for pub_top in pubs_top %}
+                <div class="content-card">
+                    <h3>{{ pub_top.name }}</h3>
+                    <p>{{ pub_top.num_books }} </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
