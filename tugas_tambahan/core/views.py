@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from .models import Store, Author, Book, Publisher
 from .forms import AuthorForm, BookForm, PublisherForm, StoreForm
 from django.db.models import Avg, Max, Count, Q
+from django.core.cache import cache
 # Create your views here.
 
 def home(request):
@@ -24,6 +25,9 @@ def home(request):
 
     # top 5 publisher, dihitung dari jumlah buku
     pubs_top = Publisher.objects.annotate(num_books=Count('book')).order_by('-num_books')
+
+    # penulis dengan buku terbanyak
+    # authors_top = Author.objects.annotate(num_books=Count(''))
     context = {
         'stores': stores,
         'authors': authors,
@@ -126,22 +130,64 @@ def add_publisher(request):
     return render(request, 'core/add_book.html', {'form': form })
 
 def book_detail(request, pk):
-    book = Book.objects.get(id=pk)
+    if cache.get(pk):
+        print('data from cache')
+        book = cache.get(pk)
+    else:
+        try:
+            book = Book.objects.get(id=pk)
+            cache.set(pk, book)
+            print('data from db')
+        except Book.DoesNotExist:
+            return redirect('/')
 
     context = {'book': book}
     return render(request, 'core/book_detail.html', context)
 
 def author_detail(request, pk):
-    author = Author.objects.get(id=pk)
-    context = {'author': author}
+    
+    if cache.get(pk):
+        print('data from cache')
+        author = cache.get(pk)
+    else:
+        try:
+            author = Author.objects.get(id=pk)
+            cache.set(pk, author)
+            print('data from db')
+        except Book.DoesNotExist:
+            return redirect('/')
+
+    books = Book.objects.filter(id=pk)
+    context = {'author': author, 'books': books}
     return render(request, 'core/author_detail.html', context)
 
 def publisher_detail(request, pk):
-    publisher = Publisher.objects.get(id=pk)
+    
+    if cache.get(pk):
+        print('data from cache')
+        publisher = cache.get(pk)
+    else:
+        try:
+            publisher = Publisher.objects.get(id=pk)
+            cache.set(pk, publisher)
+            print('data from db')
+        except Book.DoesNotExist:
+            return redirect('/')
+
     context = {'publisher': publisher}
     return render(request, 'core/publisher_detail.html', context)
 
 def store_detail(request, pk):
-    store = Store.objects.get(id=pk)
+    if cache.get(pk):
+        print('data from cache')
+        store = cache.get(pk)
+    else:
+        try:
+            store = Store.objects.get(id=pk)
+            cache.set(pk, store)
+            print('data from db')
+        except Book.DoesNotExist:
+            return redirect('/')
+
     context = {'store': store}
     return render(request, 'core/store_detail.html', context)
