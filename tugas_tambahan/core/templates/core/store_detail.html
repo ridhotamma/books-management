@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+    <style>
+        .detail {
+            padding: 20px;
+        }
+
+        .detail-wrapper {
+            font-size: 15px;
+        }
+    </style>
+
+    <div class="detail">
+        <h1>details of {{ store.name }}</h1>
+        <hr>
+        <div class="detail-wrapper">
+            <img src="{{ store.image.url }}" alt="">
+            <p>name: {{ store.name }}</p>
+            <p>buku yang tersedia: {{ store.books }}</p>
+        </div>
+    </div>
+{% endblock %}

@@ -38,10 +38,10 @@ def home(request):
     return render(request, 'core/home.html', context)
 
 def add_book(request):
-    form = BookForm()
+    form = BookForm(data=request.POST, files=request.FILES)
     if request.method == 'POST':
-        form = BookForm(request.POST)
-        # if form.is_valid():
+        form = BookForm(request.POST, files=request.FILES)
+        if form.is_valid():
         #     obj = Book()
         #     obj.name = form.cleaned_data['name']
         #     obj.pages = form.cleaned_data['pages']
@@ -54,36 +54,36 @@ def add_book(request):
             # save menggunakan form biasa
             # obj.save()
             # save menggunakan modelform
-        book = form.save()
-        return redirect('home')
+            book = form.save()
+            return redirect('home')
     else:
-        form = BookForm()
+        form = BookForm(data=request.POST, files=request.FILES)
 
     return render(request, 'core/add_book.html', {'form': form })
 
 def add_author(request):
-    form = AuthorForm()
+    form = AuthorForm(data=request.POST, files=request.FILES)
     if request.method == 'POST':
-        form = AuthorForm(request.POST)
+        form = AuthorForm(data=request.POST, files=request.FILES)
         if form.is_valid():
-            obj = Author()
-            obj.name = form.cleaned_data['name']
-            obj.age = form.cleaned_data['age']
-            obj.save()
-            # author = form.save()
+            # obj = Author()
+            # obj.name = form.cleaned_data['name']
+            # obj.age = form.cleaned_data['age']
+            # obj.save()
+            author = form.save()
 
             return redirect('home')
     else:
-        form = AuthorForm()
+        form = AuthorForm(data=request.POST, files=request.FILES)
 
     return render(request, 'core/add_author.html', {'form': form })
 
 
 
 def add_store(request):
-    form = StoreForm()
+    form = StoreForm(data=request.POST, files=request.FILES)
     if request.method == 'POST':
-        form = StoreForm(request.POST)
+        form = StoreForm(request.POST,files=request.FILES)
         if form.is_valid():
             # obj = Book()
             # obj.name = form.cleaned_data['name']
@@ -98,15 +98,15 @@ def add_store(request):
 
             return redirect('home')
     else:
-        form = StoreForm()
+        form = StoreForm(data=request.POST, files=request.FILES)
 
     return render(request, 'core/add_store.html', {'form': form })
 
 
 def add_publisher(request):
-    form = PublisherForm()
+    form = PublisherForm(data=request.POST, files=request.FILES)
     if request.method == 'POST':
-        form = PublisherForm(request.POST)
+        form = PublisherForm(request.POST,files=request.FILES)
         if form.is_valid():
             # obj = Book()
             # obj.name = form.cleaned_data['name']
@@ -121,6 +121,27 @@ def add_publisher(request):
 
             return redirect('home')
     else:
-        form = PublisherForm()
+        form = PublisherForm(data=request.POST, files=request.FILES)
 
     return render(request, 'core/add_book.html', {'form': form })
+
+def book_detail(request, pk):
+    book = Book.objects.get(id=pk)
+
+    context = {'book': book}
+    return render(request, 'core/book_detail.html', context)
+
+def author_detail(request, pk):
+    author = Author.objects.get(id=pk)
+    context = {'author': author}
+    return render(request, 'core/author_detail.html', context)
+
+def publisher_detail(request, pk):
+    publisher = Publisher.objects.get(id=pk)
+    context = {'publisher': publisher}
+    return render(request, 'core/publisher_detail.html', context)
+
+def store_detail(request, pk):
+    store = Store.objects.get(id=pk)
+    context = {'store': store}
+    return render(request, 'core/store_detail.html', context)

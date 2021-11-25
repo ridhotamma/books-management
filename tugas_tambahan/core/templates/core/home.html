@@ -78,20 +78,20 @@
             <div class="button-wrapper">
                 <div class="content-wrapper">
                     <p>total buku yg sudah ada: {{ books.count }}</p>
-                    <a href="{% url 'add-book' %}" class="button button-good">manage buku</a>
+                    <a href="{% url 'add-book' %}" class="button button-good">add buku</a>
                 </div>
                 <div class="content-wrapper">
                     <p>total penulis yg sudah ada: {{ authors.count }}</p>
-                    <a href="{% url 'add-author' %}" class="button button-good">manage penulis</a>
+                    <a href="{% url 'add-author' %}" class="button button-good">add penulis</a>
                 </div>
                 <div class="content-wrapper">
                     <p>total publisher yg sudah ada: {{ publishers.count }}</p>
-                    <a href="{% url 'add-publisher' %}" class="button button-good">manage publisher</a>
+                    <a href="{% url 'add-publisher' %}" class="button button-good">add publisher</a>
                 </div>
 
                 <div class="content-wrapper">
                     <p>total toko yg sudah ada: {{ stores.count }}</p>
-                    <a href="{% url 'add-store' %}" class="button button-good">manage toko</a>
+                    <a href="{% url 'add-store' %}" class="button button-good">add toko</a>
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                     <h3>List of Books : </h3>
                     <hr>
                     {% for book in books %}
-                        <p>{{ book.name }}</p>
+                        <a href="{% url 'book-detail' book.id %}">{{ book.name }}</a>
                     {% endfor %}
                 </div>
     
@@ -109,7 +109,7 @@
                     <h3>List of Stores : </h3>
                     <hr>
                     {% for store in stores %}
-                        <p>{{ store.name }}</p>
+                        <a href="{% url 'store-detail' store.id %}">{{ store.name }}</a>
                     {% endfor %}
                 </div>
     
@@ -117,7 +117,7 @@
                     <h3>List of Authors : </h3>
                     <hr>
                     {% for author in authors %}
-                        <p>{{ author.name }}</p>
+                        <a href="{% url 'author-detail' author.id %}">{{ author.name }}</a>
                     {% endfor %}
                 </div>
     
@@ -125,7 +125,7 @@
                     <h3>List of Publishers : </h3>
                     <hr>
                     {% for publisher in publishers %}
-                        <p>{{ publisher.name }}</p>
+                        <a href="{% url 'publisher-detail' publisher.id %}">{{ publisher.name }}</a>
                     {% endfor %}
                 </div>
             </div>

@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+    <style>
+        .detail {
+            padding: 20px;
+        }
+
+        .detail-wrapper {
+            font-size: 15px;
+        }
+    </style>
+
+    <div class="detail">
+        <h1>details of {{ book.name }}</h1>
+        <hr>
+        <div class="detail-wrapper">
+            <img src="{{ book.image.url }}" alt="">
+            <p>name: {{ book.name }}</p>
+            <p>penulis : {{ book.authors }}</p>
+            <p>publisher: {{ book.publisher }}</p>
+            <p>harga: {{ book.price }}</p>
+            <p>rating: {{ book.rating }}</p>
+            <p>dibuat pada: {{ book.pubdate }}</p>
+        </div>
+    </div>
+{% endblock %}

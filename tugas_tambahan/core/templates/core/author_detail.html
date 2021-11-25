@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+    <style>
+        .detail {
+            padding: 20px;
+        }
+
+        .detail-wrapper {
+            font-size: 15px;
+        }
+    </style>
+
+    <div class="detail">
+        <h1>details of {{ author.name }}</h1>
+        <hr>
+        <div class="detail-wrapper">
+            <img src="{{ author.image.url }}" alt="author image">
+            <p>name: {{ author.name }}</p>
+            <p>umur: {{ author.age }}</p>
+        </div>
+    </div>
+{% endblock %}

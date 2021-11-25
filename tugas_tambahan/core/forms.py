@@ -17,14 +17,14 @@ class BookForm(ModelForm):
         model = Book
         fields = '__all__'
 
-class AuthorForm(forms.Form):
-# class AuthorForm(ModelForm):
-    name = forms.CharField(max_length=100)
-    age = forms.IntegerField()
+# class AuthorForm(forms.Form):
+class AuthorForm(ModelForm):
+    # name = forms.CharField(max_length=100)
+    # age = forms.IntegerField()
 
-    # class Meta:
-    #     model = Author
-    #     fields = '__all__'
+    class Meta:
+        model = Author
+        fields = '__all__'
 
 
 # class PublisherForm(forms.Form):
